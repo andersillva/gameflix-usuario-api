@@ -43,7 +43,7 @@ public class SpringSecurityConfig {
 
         http.authorizeRequests()
     		.antMatchers(HttpMethod.POST, VersaoAPI.URI_BASE + "/*/login").permitAll()
-    		.antMatchers(HttpMethod.POST, VersaoAPI.URI_BASE).permitAll()
+    		.antMatchers(HttpMethod.POST, VersaoAPI.URI_BASE + "/*").permitAll()
     		.antMatchers(HttpMethod.GET, VersaoAPI.URI_BASE + "/*/hello").permitAll()
     		.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
     		.and().csrf().disable() //Usando JWT essa validação pode ser desabilitada
