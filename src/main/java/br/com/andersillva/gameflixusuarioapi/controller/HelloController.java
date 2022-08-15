@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.andersillva.gameflixusuarioapi.controller.utils.VersaoAPI;
+import br.com.andersillva.gameflixusuarioapi.controller.util.VersaoAPI;
 
 @RestController
 @RequestMapping(path=VersaoAPI.URI_BASE_V1, produces=MediaType.TEXT_PLAIN_VALUE)

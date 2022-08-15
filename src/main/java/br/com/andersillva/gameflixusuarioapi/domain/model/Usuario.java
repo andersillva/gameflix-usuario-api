@@ -37,7 +37,7 @@ public class Usuario {
 
 	@Column(name="ds_email", length=30, nullable=false)
 	@NotBlank
-	private String login;
+	private String email;
 
 	@Column(name="ds_senha", length=100, nullable=false)
 	@NotBlank
