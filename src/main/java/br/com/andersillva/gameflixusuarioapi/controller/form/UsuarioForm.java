@@ -31,8 +31,7 @@ public class UsuarioForm {
 	private String senha;
 
 	public Usuario converter() {
-		Usuario usuario = mapper.map(this, Usuario.class);
-		return usuario;
+		return mapper.map(this, Usuario.class);
 	}
 
 }

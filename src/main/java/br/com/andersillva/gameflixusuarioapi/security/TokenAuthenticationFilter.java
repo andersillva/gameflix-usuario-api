@@ -47,7 +47,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 		if(optionalUser.isPresent()) {
 			UsuarioAutenticado user = new UsuarioAutenticado(optionalUser.get());
-			List<UsuarioAutenticado> lista = new ArrayList<UsuarioAutenticado>();
+			List<UsuarioAutenticado> lista = new ArrayList<>();
 			lista.add(user);		
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, lista);
 			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken); //Força a autenticação

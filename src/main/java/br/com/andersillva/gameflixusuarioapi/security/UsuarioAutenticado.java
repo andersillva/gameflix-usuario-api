@@ -2,7 +2,6 @@ package br.com.andersillva.gameflixusuarioapi.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +20,7 @@ public class UsuarioAutenticado implements UserDetails, GrantedAuthority {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		return authorities;
+		return new ArrayList<>();
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package br.com.andersillva.gameflixusuarioapi.domain.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -16,7 +17,9 @@ import lombok.Data;
 @Entity
 @Table(name="usuario")
 @Data
-public class Usuario {
+public class Usuario implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

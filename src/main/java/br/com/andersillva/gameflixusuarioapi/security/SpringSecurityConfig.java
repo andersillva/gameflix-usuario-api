@@ -1,6 +1,5 @@
 package br.com.andersillva.gameflixusuarioapi.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,12 +24,6 @@ import br.com.andersillva.gameflixusuarioapi.domain.repository.UsuarioRepository
 @Configuration
 public class SpringSecurityConfig {
 
-	@Autowired
-	private TokenService tokenService;
-
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-
     //Configurations for authentication
     @Bean
     public UserDetailsService userDetailsService() {
@@ -39,7 +32,7 @@ public class SpringSecurityConfig {
 
     //Configuration for authorization
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, TokenService tokenService, UsuarioRepository usuarioRepository) throws Exception {
 
         http.authorizeRequests()
     		.antMatchers(HttpMethod.POST, VersaoAPI.URI_BASE + "/*/login").permitAll()
@@ -58,9 +51,11 @@ public class SpringSecurityConfig {
     //Configuration for static resources
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/v3/api-docs/**",
-				   								   "/swagger-ui.html",
-				   								   "/swagger-ui/**");
+        return web -> web.ignoring().antMatchers(
+	        		"/v3/api-docs/**",
+	        		"/swagger-ui.html",
+	        		"/swagger-ui/**"
+        		);
     }
 
     @Bean

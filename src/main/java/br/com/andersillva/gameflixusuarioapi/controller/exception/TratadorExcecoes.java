@@ -23,32 +23,28 @@ public class TratadorExcecoes {
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ResponseBody
 	public RespostaPadraoErro responderErro(RegistroNaoEncontradoException e, HttpServletRequest request){
-		RespostaPadraoErro resposta = new RespostaPadraoErro(HttpStatus.NOT_FOUND.value(), e.getMessage()); 
-		return resposta;
+		return new RespostaPadraoErro(HttpStatus.NOT_FOUND.value(), e.getMessage());
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	public RespostaPadraoErro responderErro(MethodArgumentNotValidException e, HttpServletRequest request){
-		RespostaPadraoErro resposta = new RespostaPadraoErro(HttpStatus.BAD_REQUEST.value(), "Parâmetro(s) obrigatório(s) não informado(s)."); 
-		return resposta;
+		return new RespostaPadraoErro(HttpStatus.BAD_REQUEST.value(), "Parâmetro(s) obrigatório(s) não informado(s).");
 	}
 
 	@ExceptionHandler(RegistroDuplicadoException.class)
 	@ResponseStatus(HttpStatus.CONFLICT)
 	@ResponseBody
 	public RespostaPadraoErro responderErro(RegistroDuplicadoException e, HttpServletRequest request){
-		RespostaPadraoErro resposta = new RespostaPadraoErro(HttpStatus.CONFLICT.value(), e.getMessage()); 
-		return resposta;
+		return new RespostaPadraoErro(HttpStatus.CONFLICT.value(), e.getMessage());
 	}
 
 	@ExceptionHandler(BadCredentialsException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ResponseBody
 	public RespostaPadraoErro responderErro(BadCredentialsException e, HttpServletRequest request){
-		RespostaPadraoErro resposta = new RespostaPadraoErro(HttpStatus.NOT_FOUND.value(), "Usuário ou senha inválidos.");
-		return resposta;
+		return new RespostaPadraoErro(HttpStatus.NOT_FOUND.value(), "Usuário ou senha inválidos.");
 	}
 
 	@ExceptionHandler(Exception.class)
@@ -62,7 +58,6 @@ public class TratadorExcecoes {
 	    	RespostaPadraoErro resposta = new RespostaPadraoErro(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocorreu um erro interno no servidor. Por favor, tente novamente mais tarde.");
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resposta);
 	    }
-
 	}
 
 	private Throwable getResultCause(Exception e) {
