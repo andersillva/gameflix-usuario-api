@@ -1,7 +1,8 @@
 package br.com.andersillva.gameflixusuarioapi.domain.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,19 +25,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void registrar(Usuario usuario) {
 
+		validarDuplicidade(usuario);
 		usuario.setId(null);
 		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-		salvar(usuario);
+		usuarioRepository.saveAndFlush(usuario);
 
 	}
 
-	private void salvar(Usuario usuario) {
+	private void validarDuplicidade(Usuario usuario) {
 
-		try {
-			usuarioRepository.saveAndFlush(usuario);
-		} catch (DataIntegrityViolationException e) {
+		if (usuarioRepository.obterPorEmail(usuario.getEmail()).isPresent())
 			throw new RegistroDuplicadoException();
-		}
+
+		if (usuarioRepository.obterPorCpf(usuario.getCpf()).isPresent())
+			throw new RegistroDuplicadoException();
 
 	}
 
