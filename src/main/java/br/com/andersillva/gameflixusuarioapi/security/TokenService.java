@@ -28,6 +28,7 @@ public class TokenService {
 
 		return Jwts.builder().setIssuer("AWS-TRAB-FINAL")
 							 .setSubject(usuario.getId().toString())
+							 .claim("email", usuario.getUsername())
 							 .setIssuedAt(new Date())
 							 .setExpiration(exp)
 							 .signWith(SignatureAlgorithm.HS256, secret).compact();
