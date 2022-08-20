@@ -1,14 +1,14 @@
-package br.com.andersillva.gameflixusuarioapi.domain.model.types;
+package br.com.andersillva.gameflixusuarioapi.domain.model.domaintype.converter;
 
 import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
 
-@Converter
-public class ConversorEnum<T extends Enum<T> & EnumPersistente<E>, E> implements AttributeConverter<T, E> {
+import br.com.andersillva.gameflixusuarioapi.domain.model.domaintype.Dominio;
+
+public abstract class DominioAbstractConverter<T extends Enum<T> & Dominio<E>, E> implements AttributeConverter<T, E> {
 
     private final Class<T> type;
 
-    public ConversorEnum(Class<T> type) {
+    protected DominioAbstractConverter(Class<T> type) {
         this.type = type;
     }
 

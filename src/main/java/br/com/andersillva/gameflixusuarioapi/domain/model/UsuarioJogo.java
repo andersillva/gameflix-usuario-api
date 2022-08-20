@@ -3,7 +3,6 @@ package br.com.andersillva.gameflixusuarioapi.domain.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import br.com.andersillva.gameflixusuarioapi.domain.model.types.FormaInclusao;
+import br.com.andersillva.gameflixusuarioapi.domain.model.domaintype.FormaInclusao;
 import lombok.Data;
 
 @Entity
@@ -37,7 +36,6 @@ public class UsuarioJogo {
 
 	@Column(name="tp_inclusao", nullable=false)
 	@NotNull
-	@Convert(converter = FormaInclusao.Conversor.class)
 	private FormaInclusao formaInclusao;
 
 	@Column(name="dt_inclusao", nullable=false)
