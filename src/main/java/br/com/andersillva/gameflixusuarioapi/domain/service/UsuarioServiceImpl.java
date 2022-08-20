@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.andersillva.gameflixusuarioapi.domain.model.Usuario;
 import br.com.andersillva.gameflixusuarioapi.domain.repository.UsuarioRepository;
 import br.com.andersillva.gameflixusuarioapi.domain.service.exception.RegistroDuplicadoException;
+import br.com.andersillva.gameflixusuarioapi.domain.service.exception.RegistroNaoEncontradoException;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -40,6 +41,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (usuarioRepository.obterPorCpf(usuario.getCpf()).isPresent())
 			throw new RegistroDuplicadoException();
 
+	}
+
+	@Override
+	public Usuario obterPorId(Long idUsuario) {
+		Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
+		return usuario.orElseThrow(RegistroNaoEncontradoException::new);
 	}
 
 }

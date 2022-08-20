@@ -6,4 +6,6 @@ public interface UsuarioService {
 
 	public void registrar(Usuario usuario);
 
+	public Usuario obterPorId(Long idUsuario);
+
 }

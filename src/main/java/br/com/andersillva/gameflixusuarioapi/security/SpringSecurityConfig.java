@@ -34,9 +34,9 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, TokenService tokenService, UsuarioRepository usuarioRepository) throws Exception {
 
         http.authorizeRequests()
-    		.antMatchers(HttpMethod.POST, VersaoAPI.URI_BASE + "/*/login").permitAll()
-    		.antMatchers(HttpMethod.POST, VersaoAPI.URI_BASE + "/*").permitAll()
-    		.antMatchers(HttpMethod.GET, VersaoAPI.URI_BASE + "/*/hello").permitAll()
+    		.antMatchers(HttpMethod.POST, VersaoAPI.URI_BASE_V1 + "/login").permitAll()
+    		.antMatchers(HttpMethod.POST, VersaoAPI.URI_BASE_V1).permitAll()
+    		.antMatchers(HttpMethod.GET, VersaoAPI.URI_BASE_V1 + "/hello").permitAll()
     		.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
     		.and().csrf().disable() //Usando JWT essa validação pode ser desabilitada
     		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

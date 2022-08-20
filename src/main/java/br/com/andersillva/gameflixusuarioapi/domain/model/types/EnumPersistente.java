@@ -1,8 +1,7 @@
 package br.com.andersillva.gameflixusuarioapi.domain.model.types;
 
-public enum TipoInclusao {
+public interface EnumPersistente<T> {
 
-	COMPRA_AVULSA,
-	ASSINATURA
+	public T getValor();
 
 }
