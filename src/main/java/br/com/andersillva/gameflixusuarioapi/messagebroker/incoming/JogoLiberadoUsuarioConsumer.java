@@ -1,4 +1,4 @@
-package br.com.andersillva.gameflixusuarioapi.messagebroker.consumer;
+package br.com.andersillva.gameflixusuarioapi.messagebroker.incoming;
 
 import javax.transaction.Transactional;
 
