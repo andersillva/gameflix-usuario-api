@@ -1,6 +1,7 @@
 package br.com.andersillva.gameflixusuarioapi.controller.dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.andersillva.gameflixusuarioapi.domain.model.UsuarioJogo;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class UsuarioJogoDTO {
 	}
 
 	public static List<UsuarioJogoDTO> converter(List<UsuarioJogo> jogosUsuario) {
-		return jogosUsuario.stream().map(UsuarioJogoDTO::new).toList();
+		return jogosUsuario.stream().map(UsuarioJogoDTO::new).collect(Collectors.toList());
 	}
 
 }
