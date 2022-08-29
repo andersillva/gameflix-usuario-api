@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import br.com.andersillva.gameflixusuarioapi.domain.model.domaintype.FormaInclusao;
@@ -33,6 +34,10 @@ public class UsuarioJogo {
 	@Column(name="id_jogo", nullable=false)
 	@NotNull
 	private Long idJogo;
+
+	@Column(name="nm_jogo", nullable=false)
+	@NotEmpty
+	private String nome;
 
 	@Column(name="tp_inclusao", nullable=false)
 	@NotNull

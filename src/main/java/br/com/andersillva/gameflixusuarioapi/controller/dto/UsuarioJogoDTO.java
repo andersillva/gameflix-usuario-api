@@ -10,9 +10,12 @@ import lombok.Data;
 public class UsuarioJogoDTO {
 
 	private Long idJogo;
+	
+	private String nome;
 
 	public UsuarioJogoDTO(UsuarioJogo usuarioJogo) {
 		this.idJogo = usuarioJogo.getIdJogo();
+		this.nome = usuarioJogo.getNome();
 	}
 
 	public static List<UsuarioJogoDTO> converter(List<UsuarioJogo> jogosUsuario) {
