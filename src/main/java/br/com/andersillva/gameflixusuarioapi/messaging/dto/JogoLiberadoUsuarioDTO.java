@@ -1,4 +1,4 @@
-package br.com.andersillva.gameflixusuarioapi.messagebroker.dto;
+package br.com.andersillva.gameflixusuarioapi.messaging.dto;
 
 import java.util.ArrayList;
 import java.util.List;

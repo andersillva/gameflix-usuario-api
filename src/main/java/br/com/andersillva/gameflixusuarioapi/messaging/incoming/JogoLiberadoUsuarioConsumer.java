@@ -1,4 +1,4 @@
-package br.com.andersillva.gameflixusuarioapi.messagebroker.incoming;
+package br.com.andersillva.gameflixusuarioapi.messaging.incoming;
 
 import javax.transaction.Transactional;
 
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.andersillva.gameflixusuarioapi.domain.service.UsuarioJogoService;
-import br.com.andersillva.gameflixusuarioapi.messagebroker.dto.JogoLiberadoUsuarioDTO;
+import br.com.andersillva.gameflixusuarioapi.messaging.dto.JogoLiberadoUsuarioDTO;
 
 @Component
 public class JogoLiberadoUsuarioConsumer {
