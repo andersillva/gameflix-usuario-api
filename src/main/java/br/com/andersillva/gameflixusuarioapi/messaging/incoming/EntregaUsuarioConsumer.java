@@ -13,30 +13,34 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.andersillva.gameflixusuarioapi.domain.service.UsuarioJogoService;
-import br.com.andersillva.gameflixusuarioapi.messaging.dto.JogoLiberadoUsuarioDTO;
+import br.com.andersillva.gameflixusuarioapi.messaging.dto.MensagemEntregaUsuarioDTO;
 
 @Component
-public class JogoLiberadoUsuarioConsumer {
+public class EntregaUsuarioConsumer {
 
     private final ObjectMapper mapper = new ObjectMapper();
-    private final Logger log = LoggerFactory.getLogger(JogoLiberadoUsuarioConsumer.class);
+    private final Logger log = LoggerFactory.getLogger(EntregaUsuarioConsumer.class);
 
     private final UsuarioJogoService usuarioJogoService;
 
-    public JogoLiberadoUsuarioConsumer(UsuarioJogoService usuarioJogoService) {
+    public EntregaUsuarioConsumer(UsuarioJogoService usuarioJogoService) {
         this.usuarioJogoService = usuarioJogoService;
     }
 
-    @KafkaListener(topics = "${app.topic.jogo-liberado-para-usuario}")
+    @KafkaListener(topics = "${app.topic.entrega-usuario}")
     @Transactional
     public void consume(@Payload String message, Acknowledgment ack) throws JsonProcessingException {
 
         log.info("Consumindo mensagem: " + message);
 
-        var jogoLiberadoUsuarioDTO = mapper.readValue(message, JogoLiberadoUsuarioDTO.class);
+        var jogoLiberadoUsuarioDTO = mapper.readValue(message, MensagemEntregaUsuarioDTO.class);
 
         jogoLiberadoUsuarioDTO.getJogos().forEach(jogo -> 
-        	usuarioJogoService.adicionarJogoUsuario(jogo.getIdJogo(), jogoLiberadoUsuarioDTO.getIdUsuario())
+        	usuarioJogoService.adicionarJogoUsuario(
+        			jogoLiberadoUsuarioDTO.getIdUsuario(), 
+        			jogo.getIdJogo(), 
+        			jogo.getNome(),
+        			jogo.getFormaInclusao())
         );
 
         ack.acknowledge();
