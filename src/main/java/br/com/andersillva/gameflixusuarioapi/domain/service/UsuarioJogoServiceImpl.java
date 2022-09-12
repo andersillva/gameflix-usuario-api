@@ -3,6 +3,7 @@ package br.com.andersillva.gameflixusuarioapi.domain.service;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,14 +37,24 @@ public class UsuarioJogoServiceImpl implements UsuarioJogoService {
 	public void adicionarJogoUsuario(Long idUsuario, Long idJogo, String nome, FormaInclusao formaInclusao) {
 
 		Usuario usuario = usuarioService.obterPorId(idUsuario);
+		Optional<UsuarioJogo> usuarioJogo = usuarioJogoRepository.obterJogoUsuario(idUsuario, idJogo);
 
-		UsuarioJogo usuarioJogo = new UsuarioJogo();
-		usuarioJogo.setUsuario(usuario);
-		usuarioJogo.setIdJogo(idJogo);
-		usuarioJogo.setNome(nome);
-		usuarioJogo.setDataInclusao(LocalDate.now(clock));
-		usuarioJogo.setFormaInclusao(formaInclusao);
-		usuarioJogoRepository.saveAndFlush(usuarioJogo);
+		if (usuarioJogo.isPresent()) {
+			UsuarioJogo usuarioJogoExistente = usuarioJogo.get();
+			if ((usuarioJogoExistente.getFormaInclusao().equals(FormaInclusao.ASSINATURA))&&(formaInclusao.equals(FormaInclusao.COMPRA_AVULSA))) {
+				usuarioJogoExistente.setFormaInclusao(FormaInclusao.COMPRA_AVULSA);
+				usuarioJogoExistente.setDataInclusao(LocalDate.now(clock));
+				usuarioJogoRepository.saveAndFlush(usuarioJogoExistente);
+			}
+		} else {
+			UsuarioJogo usuarioJogoNovo = new UsuarioJogo();
+			usuarioJogoNovo.setUsuario(usuario);
+			usuarioJogoNovo.setIdJogo(idJogo);
+			usuarioJogoNovo.setNome(nome);
+			usuarioJogoNovo.setDataInclusao(LocalDate.now(clock));
+			usuarioJogoNovo.setFormaInclusao(formaInclusao);
+			usuarioJogoRepository.saveAndFlush(usuarioJogoNovo);
+		}
 
 	}
 
