@@ -33,7 +33,7 @@ public class EntregaUsuarioConsumer {
 
         log.info("Consumindo mensagem: " + message);
 
-        var jogoLiberadoUsuarioDTO = mapper.readValue(message, MensagemEntregaUsuarioDTO.class);
+        MensagemEntregaUsuarioDTO jogoLiberadoUsuarioDTO = mapper.readValue(message, MensagemEntregaUsuarioDTO.class);
 
         jogoLiberadoUsuarioDTO.getJogos().forEach(jogo -> 
         	usuarioJogoService.adicionarJogoUsuario(
