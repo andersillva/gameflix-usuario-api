@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.andersillva.gameflixusuarioapi.controller.dto.TokenDTO;
+import br.com.andersillva.gameflixusuarioapi.controller.dto.UsuarioDTO;
 import br.com.andersillva.gameflixusuarioapi.controller.dto.UsuarioJogoDTO;
 import br.com.andersillva.gameflixusuarioapi.controller.form.AutenticacaoForm;
 import br.com.andersillva.gameflixusuarioapi.controller.form.UsuarioForm;
@@ -57,12 +58,11 @@ public class UsuarioController {
 	}
 
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> registrar(@Valid @RequestBody UsuarioForm usuarioForm) {
+	public ResponseEntity<UsuarioDTO> registrar(@Valid @RequestBody UsuarioForm usuarioForm) {
 
 		Usuario usuario = usuarioForm.converter();
 		usuarioService.registrar(usuario);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
-
+		return new ResponseEntity<>(new UsuarioDTO(usuario), HttpStatus.CREATED);
 	}
 
 	@PostMapping(path="/login", consumes=MediaType.APPLICATION_JSON_VALUE)
